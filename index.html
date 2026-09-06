@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get the app</title>
+
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+       
+        }
+
+        body {
+            background-image: url("window.png");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+        body::before {
+          content: "";
+          position: fixed;
+          inset: 0;
+          pointer-events: none;
+          background: linear-gradient(90deg, rgba(228, 233, 255, .64) 0%, rgba(234, 238, 255, .22) 45%, transparent 72%);
+        }
+        body::after {
+          content: "";
+          position: fixed;
+          z-index: 0;
+          right: 7%;
+          bottom: 6%;
+          width: 230px;
+          height: 230px;
+          border-radius: 50%;
+          background: rgba(20, 80, 206, .12);
+          filter: blur(38px);
+          pointer-events: none;
+        }
+        .desktop-notice {
+          display: flex;
+          position: fixed;
+          z-index: 10;
+          inset: 0;
+          align-items: center;
+          justify-content: center;
+          padding: 24px;
+          box-sizing: border-box;
+          color: #fff;
+          background: linear-gradient(135deg, rgba(5, 35, 102, .96), rgba(11, 77, 191, .92));
+          text-align: center;
+        }
+        .desktop-notice__card { max-width: 390px; }
+        .desktop-notice__icon { display: grid; place-items: center; width: 64px; height: 64px; margin: 0 auto 22px; border: 1px solid rgba(255,255,255,.3); border-radius: 20px; background: rgba(255,255,255,.12); font-size: 30px; }
+        .desktop-notice h1 { margin: 0 0 12px; color: #fff; font: 700 32px/1.15 Arial, sans-serif; letter-spacing: -.03em; }
+        .desktop-notice h1::after { display: none; }
+        .desktop-notice p { margin: 0; color: #dce8ff; font: 400 16px/1.55 Arial, sans-serif; }
+        .right, .left {
+          min-height: 100vh;
+          position: relative;
+          z-index: 1;
+        }
+        .right {
+          display: flex;
+          align-items: center;
+          width: 48%;
+          padding: 58px clamp(38px, 5vw, 96px);
+          box-sizing: border-box;
+          background: transparent;
+          box-shadow: none;
+        }
+        .content {
+          max-width: 500px;
+          color: #092d7d;
+        }
+        .brand-logo {
+          display: block;
+          width: min(100%, 242px);
+          height: auto;
+          margin-bottom: clamp(42px, 6vh, 84px);
+          border-radius: 2px;
+          box-shadow: 0 12px 30px rgba(7, 43, 117, .2);
+        }
+        .eyebrow {
+          display: inline-block;
+          margin-bottom: 16px;
+          padding: 7px 12px;
+          border: 1px solid rgba(13, 68, 170, .16);
+          border-radius: 999px;
+          font: 600 12px/1 Arial, sans-serif;
+          letter-spacing: .08em;
+          text-transform: uppercase;
+          color: #0b4bc1;
+          background: rgba(255, 255, 255, .48);
+        }
+        h1 {
+          margin: 0 0 20px;
+          font: 750 clamp(38px, 4.2vw, 60px)/1.05 Arial, sans-serif;
+          letter-spacing: -.045em;
+        }
+      
+        h1 span { color: #d00d1c; }
+        p {
+          margin: 0 0 42px;
+          color: #31507f;
+          font: 400 clamp(17px, 1.45vw, 22px)/1.5 Arial, sans-serif;
+        }
+        .download-button {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          padding: 17px 24px;
+          border-radius: 10px;
+          background: #ed1c24;
+          color: #fff;
+          font: 700 16px/1 Arial, sans-serif;
+          text-decoration: none;
+          box-shadow: 0 12px 26px rgba(0, 0, 0, .25);
+          transition: transform .2s ease, box-shadow .2s ease;
+        }
+        .download-button:hover, .download-button:focus-visible {
+          transform: translateY(-2px);
+          box-shadow: 0 14px 28px rgba(0, 0, 0, .28);
+        }
+        .download-note {
+          margin-top: 16px;
+          font-size: 13px;
+          color: #526b94;
+        }
+        .benefits { margin-bottom: 40px; }
+        .benefits h2 { margin: 0 0 20px; color: #0d4bc0; font: 700 clamp(20px, 2vw, 28px)/1.2 Arial, sans-serif; }
+        .benefit-list { display: grid; gap: 12px; }
+        .benefit { display: flex; align-items: center; gap: 15px; min-height: 48px; padding: 9px 14px 9px 9px; box-sizing: border-box; border: 1px solid rgba(255, 255, 255, .72); border-radius: 16px; color: #253f70; background: rgba(255, 255, 255, .34); box-shadow: 0 9px 20px rgba(29, 62, 134, .07); font: 600 17px/1.25 Arial, sans-serif; backdrop-filter: blur(7px); }
+        .benefit-icon { display: grid; place-items: center; width: 44px; height: 44px; flex: 0 0 44px; border-radius: 13px; color: #fff; background: linear-gradient(135deg, #0b56d6, #06338f); box-shadow: 0 8px 18px rgba(10, 67, 177, .2); font: 700 22px/1 Arial, sans-serif; }
+        .download-box { padding: 22px; border: 1px solid rgba(255,255,255,.78); border-radius: 22px; background: linear-gradient(130deg, rgba(255,255,255,.64), rgba(247,249,255,.3)); box-shadow: 0 16px 36px rgba(46, 68, 133, .1); backdrop-filter: blur(9px); }
+        .download-box h2 { margin: 0 0 15px; color: #0d4bc0; font: 700 27px/1 Arial, sans-serif; }
+        .left {
+          display: flex;
+          width: 52%;
+          justify-content: center;
+          align-items: center;
+          padding: 40px 5vw 40px 20px;
+          box-sizing: border-box;
+        }
+        .left img {
+          max-width: 100%;
+          height: min(86vh, 760px);
+          object-fit: contain;
+          filter: drop-shadow(0 30px 30px rgba(0, 23, 85, .24));
+          transform: rotate(3deg);
+        }
+        @media (max-width: 760px) {
+          .desktop-notice { display: none; }
+          body { display: flex; min-height: 100vh; overflow-x: hidden; flex-direction: column; background-position: 57% center; }
+          body::before { background: linear-gradient(90deg, rgba(237,240,255,.5), transparent); }
+          body::after { right: -30%; bottom: 12%; width: 190px; height: 190px; }
+          .right, .left { width: 100%; min-height: auto; }
+          .right { padding: 32px 24px 0; }
+          .content { width: 100%; max-width: 470px; margin: 0 auto; }
+          .brand-logo { width: min(100%, 180px); margin-bottom: 0px; }
+          h1 { margin-bottom: 15px; font-size: 25px; }
+         
+          p { margin-bottom: 30px; font-size: 16px; line-height: 1.45; }
+          .benefits { margin-bottom: 31px; }
+          .benefits h2 { margin-bottom: 15px; font-size: 20px; }
+          .benefit-list { gap: 12px; }
+          .benefit { gap: 10px; padding: 8px; font-size: 16px; }
+          .benefit-icon { width: 36px; height: 36px; flex-basis: 36px; border-radius: 10px; font-size: 18px; }
+          .download-box { width: auto; max-width: 300px; padding: 18px; border-radius: 17px; }
+          .download-box h2 { margin-bottom: 12px; font-size: 21px; }
+          .download-button { padding: 14px 17px; font-size: 14px; }
+          .download-note { font-size: 11px; line-height: 1.35; }
+          .left { padding: 24px 24px 36px; justify-content: center; box-sizing: border-box; }
+          .left img { width: min(100%, 390px); height: auto; max-height: none; transform: rotate(3deg); }
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="desktop-notice" aria-label="Mobile-only page">
+        <div class="desktop-notice__card">
+            <div class="desktop-notice__icon" aria-hidden="true">▯</div>
+            <h1>Mobile only</h1>
+            <p >Please open this page on your mobile phone to download the Yogloans app.</p>
+        </div>
+    </aside>
+    <div class="right">
+        <main class="content">
+            <img class="brand-logo" src="Logo2.png" alt="Yogloans – Building Better Lives">
+            <h1>Banking Made<br><span>Simple &amp; Secure</span></h1>
+            <p style="margin-top: 80px;">Download the Yogloans app and experience smart banking on the go.</p>
+
+            <section class="benefits" aria-labelledby="benefit-heading">
+              
+                <div class="benefit-list">
+                    <div class="benefit"><span class="benefit-icon" aria-hidden="true">✓</span>Secure &amp; Reliable</div>
+                    <div class="benefit"><span class="benefit-icon" aria-hidden="true">ϟ</span>Fast &amp; Convenient</div>
+                    <div class="benefit"><span class="benefit-icon" aria-hidden="true">◉</span>24/7 Customer Support</div>
+                </div>
+            </section>
+
+            <section class="download-box" aria-labelledby="download-heading">
+                <h2 id="download-heading">Download Now</h2>
+                <a class="download-button" href="com.companyname.application-Signed.apk" download="Yogloans.apk" aria-label="Download the Yogloans Android app">
+                    <span aria-hidden="true">↓</span> Download APK
+                </a>
+                <div class="download-note">Open the downloaded APK and confirm the Android installation prompt.</div>
+            </section>
+        </main>
+    </div>
+    
+ 
+
+</body>
+</html>
